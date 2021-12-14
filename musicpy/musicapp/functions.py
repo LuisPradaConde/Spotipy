@@ -8,7 +8,7 @@ import wikipediaapi
 from GoogleNews import GoogleNews
 import lyricsgenius
 
-lyricsgenius_TOKEN = 'wuuxXS_LUDjHe8eD0KMf8s6eAhSpR7mqMg5fecJUBfIVjFxdB5ZbRIGBy3DtHxv_'
+lyricsgenius_TOKEN = '*******************'
 pd.options.mode.chained_assignment = None
 
 
