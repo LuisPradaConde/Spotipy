@@ -1,0 +1,94 @@
+{% extends "musicapp/base.html" %} {%block content%}
+
+<div class = "row" id ="content">
+    <div class = "col-md-8">
+        <div class = "row" style="height: 50%;margin-bottom:2%">
+            <div class = "col-4" style = "margin-right: 5%;width:auto; ">
+                <img src = {{ imagen }} style ="max-width: 100%; max-height:100%">
+            </div>
+            <div class = "col-7">
+                <div class = "row" style = "height: 100%">
+                    <div class = "row" style = "height: auto"> <h5>ARTISTA</h5> </div>
+                    <div class = "row" style = "height: auto"> <h1> {{ nombre }} </h1>
+                        <div class = "col-sm-3 align-self-center ">
+                            {% if is_follow %}
+                                <a class="btn" href="{% url 'unfollow_artist'%}">
+                                    <i class="bi bi-star-fill"></i>
+                                </a>
+
+                            {% else %}
+                                <a class="btn" href="{% url 'follow_artist'%}">
+                                    <i class="bi bi-star"></i>
+                                </a>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class = "row"> <p style = "font-style: italic;">{{genero}}</p> </div>
+
+                    <div class = "row" style = "height:100%;overflow-y:scroll;">
+                        {{ resumen }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class = "row" style = "width:95%;max-height:40%;overflow-y:scroll;">
+            {{ tracks|safe }}
+        </div>
+    </div>
+        <div class = "col-md-4" style = "max-height:100%">
+            <div class = "row" style = "margin-top:3%;">
+                    <div class = "row" style = "margin-top:3%;">
+                        <div class ="col-6"><h2> Álbumes </h2> </div>
+                        <div class = "col-6" style = "text-align:right;vertical-align: bottom;">
+                            <form action={% url 'artist' %} method="post" id="systemForm">
+                                {% csrf_token %}
+                                <select id="comboType" name= "comboOrd" list="typesList">
+                                    <datalist id="typesList">
+                                        <option hidden selected value="">Ordenar por</option>
+                                        <option value="Titulo">Titulo</option>
+                                        <option value="Fecha">Fecha</option>
+                                    </datalist>
+                                    <select id="comboType" name= "nombre"  value={{ Nombre }}>
+                                    <button type="submit" class = "button">
+                                        <i class="bi bi-sort-up-alt"></i>
+                                    </button>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+            <div class = "row" style = "max-height:55%;overflow-y:scroll;">
+                <div class = "dataframe">
+                    {{ albums|safe }}
+                </div>
+            </div>
+            <div class = "row" style = "margin-top:3%;max-height:100%;overflow:auto">
+                <h2> Noticias Relacionadas </h2>
+                {% for x in noticias %}
+                <div class = "w-100"> <a href={{ x.link }}>{{ x.title }}</a> </div>
+                {% endfor %}
+            </div>
+        </div>
+</div>
+
+<div class = "row justify-content-center" >
+    {% if si %}
+    <form action={% url 'artist' %} method="post">
+        {% csrf_token %}
+        <button type="submit" value="2"  name="systemForm2" class = "btn">
+            <i class="bi bi-arrow-left-circle-fill"></i>
+        </button>
+    </form>
+    {% endif %}
+    <form action={% url 'artist' %} method="post">
+        {% csrf_token %}
+        <button type="submit" value="1"  name="systemForm" class = "btn">
+            <i class="bi bi-arrow-right-circle-fill"></i>
+        </button>
+    </form>
+</div>
+
+
+{% endblock %}

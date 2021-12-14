@@ -1,0 +1,111 @@
+{% extends "musicapp/base.html" %} {%block content%}
+<div class="main">
+    <div class = "d-flex">
+        <div class="p-2">
+            <form action={% url 'search' %} method="post" id="systemForm">
+                {% csrf_token %}
+                <input id="comboType" name= "comboType" type="search" pattern="artist|track|playlist|show|album" list="typesList" placeholder="Seleciona un tipo" required>
+                    <datalist id="typesList">
+                        <option hidden selected value="">Selecciona un tipo </option>
+                        <option value="artist">Artista</option>
+                        <option value="track">Cancion</option>
+                        <option value="playlist">Playlist</option>
+                        <option value="show">Podcast</option>
+                        <option value="album">Album</option>
+                    </datalist>
+                <input type="text" name="findBar" id="findBar" size="50" placeholder="Inserte..." required>
+                <button type="submit" class = "btn">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="ml-auto p-2">
+            <button class="button ">
+                <a  href={% url 'perfil' %}>
+                    <div >
+                        <h1><i class="bi bi-person-fill align-middle" ></i></h1>
+                    </div>
+                    <div >
+                        <h6>{{ id }}</h6>
+                    </div>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div id="popup1" class="overlay">
+    	<div class="popup">
+    		<h2>Crea tu playlist</h2>
+    		<a class="close" href="#">&times;</a>
+    		<div class="content">
+    			<p>Introduce el nombre y la descripcion de tu playlist</p>
+                <form action={% url 'createplaylists' %} method="post" id="systemForm">
+                    {% csrf_token %}
+                    <div class>
+                        <div class="placeholder">
+                            <input type="text" name="findBarName" id="findBarName" size="30" placeholder="Nombre..." required>
+                        </div>
+                        <div class = "placeholder">
+                            <textarea class="input" name="texareaDescription" id="texareaDescription" rows="3" placeholder="Descripcion..." ></textarea>
+                        </div>
+
+                    </div>
+                    <div class style ="text-align: center" >
+                        <input type="submit" value="Crear" >
+                    </div>
+                </form>
+    		</div>
+    	</div>
+    </div>
+
+        <div class="container-fluid">
+            <div class="row" style = "height:100%">
+                <div class="col-4" >
+                    <div class= "row" id ="playlist-row">
+                        <div> <h5>Playlists</h5> </div>
+                        <a class="btn" href="#popup1">
+                            <i class="bi bi-plus-circle-fill"></i>
+                        </a>
+                    </div>
+                    <div id = "playlists-dataframe" >
+                        {{playlists|safe}}
+                    </div>
+                </div>
+
+                <div class="col-7">
+                    <div class = "row" id="gridrow">
+                        <div class = "col-md-6">
+                             <h5>Canciones</h5>
+                            <div class = "dataframe">
+                                {{canciones|safe}}
+                            </div>
+                        </div>
+                        <div class = "col-md-6">
+                             <h5>Artistas</h5>
+                            <div class = "dataframe">
+                                {{artists|safe}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class = row id="gridrow">
+                        <div class = "col-md-6">
+                            <h5>Podcast</h5>
+                            <div class = "dataframe">
+                                {{podcasts|safe}}
+                            </div>
+                        </div>
+                        <div class = "col-md-6">
+                            <h5>Albumes</h5>
+                        <div class = "dataframe">
+                            {{albums|safe}}
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+</div>
+{% endblock %}

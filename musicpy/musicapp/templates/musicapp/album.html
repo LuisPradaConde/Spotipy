@@ -1,0 +1,69 @@
+{% extends "musicapp/base.html" %} {%block content%}
+<div class = "row" id = "content">
+    <div class = "col-md-5">
+        <div class= "row "><h6>ALBUM</h6></div>
+        <div class= "row">
+            <h1>{{ Nombre }}</h1>
+            <div class = "col align-self-center " style = "max-width: 3%;">
+                {% if is_added %}
+                    <a class="btn" href="{% url 'remove_album'%}">
+                        <i class="bi bi-star-fill"></i>
+                    </a>
+                {% else %}
+                    <a class="btn" href="{% url 'add_album'%}">
+                        <i class="bi bi-star"></i>
+                    </a>
+
+                {% endif %}
+            </div>
+
+        </div>
+        <div class= "row"><h4>{{artistas}}</h4></div>
+        <div class= "row"><p> {{ fecha }}</p></div>
+            <div class= "row"><img src = {{ imagen }} style = "max-height: 80%";max-width:70%;%></div>
+    </div>
+    <div class = "col-md-7">
+        <div class = "d-flex">
+            <div class="p-2"><h2>Canciones: {{canciones}}</h2></div>
+            <div class="ml-auto p-2">
+            <form action={% url 'album' %} method="post" id="systemForm">
+              {% csrf_token %}
+              <select id="comboType" name= "comboOrd"  list="typesList">
+                  <datalist id="typesList">
+                      <option hidden selected value="">Ordenar por</option>
+                      <option value="">Numero</option>
+                      <option value="Artistas">Artista</option>
+                      <option value="Titulo">Titulo</option>
+                      <option value="Duracion">Duracion</option>
+                  </datalist>
+              <select id="comboType" name= "nombre"  value={{ Nombre }}>
+              <button type="submit" class = "btn-sm">
+                  <i class="bi bi-sort-up-alt"></i>
+              </button>
+            </form>
+            </div>
+        </div>
+        <div class = "dataframe">
+            {{ tracks|safe }}
+        </div>
+    </div>
+</div>
+
+<div class = "row justify-content-center" >
+    {% if si %}
+        <form action={% url 'album' %} method="post">
+            {% csrf_token %}
+            <button type="submit" value="2"  name="systemForm2" class = "btn">
+                <i class="bi bi-arrow-left-circle-fill"></i>
+            </button>
+        </form>
+    {% endif %}
+    <form action={% url 'album' %} method="post">
+        {% csrf_token %}
+        <button type="submit" value="1"  name="systemForm" class = "btn">
+            <i class="bi bi-arrow-right-circle-fill"></i>
+        </button>
+    </form>
+</div>
+
+{% endblock %}

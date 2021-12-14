@@ -1,0 +1,31 @@
+from django.conf.urls import include, url
+from musicapp import views
+
+urlpatterns = [
+    url(r'^$', views.index, name='index'),
+    url(r'^logout/$', views.logout_view, name='logout_view'),
+    url(r'^signup/$', views.signup_view, name='signup_view'),
+    url(r'^loginspotify/$', views.login_spotify, name='login_spotify'),
+    url(r'^callback/$', views.callback, name='callback'),
+    url(r'^search/$', views.search, name='search'),
+    url(r'^artist/$', views.artist, name='artist'),
+    url(r'^track/$', views.track, name='track'),
+    url(r'^playlist/$', views.playlist, name='playlist'),
+    url(r'^show/$', views.show, name='show'),
+    url(r'^album/$', views.album, name='album'),
+    url(r'^createplaylists/$', views.createplaylists, name='createplaylists'),
+    url(r'^perfil/$', views.perfil, name='perfil'),
+    url(r'^follow_artist/$', views.follow_artist, name='follow_artist'),
+    url(r'^unfollow_artist/$', views.unfollow_artist, name='unfollow_artist'),
+    url(r'^add_track/$', views.add_track, name='add_track'),
+    url(r'^remove_track/$', views.remove_track, name='remove_track'),
+    url(r'^follow_playlist/$', views.follow_playlist, name='follow_playlist'),
+    url(r'^unfollow_playlist/$', views.unfollow_playlist, name='unfollow_playlist'),
+    url(r'^add_show/$', views.add_show, name='add_show'),
+    url(r'^remove_show/$', views.remove_show, name='remove_show'),
+    url(r'^add_album/$', views.add_album, name='add_album'),
+    url(r'^remove_album/$', views.remove_album, name='remove_album'),
+    url(r'^add_track_playlist/$', views.add_track_playlist, name='add_track_playlist'),
+    url(r'^remove_track_playlist/$', views.remove_track_playlist, name='remove_track_playlist'),
+    url(r'^edit_playlist/$', views.edit_playlist, name='edit_playlist'),
+]

@@ -1,0 +1,71 @@
+{% extends "musicapp/base.html" %} {%block content%}
+
+    <div class= "row" id ="content">
+        <div class ="col-md-6">
+        <h6>CANCION</h6>
+            <div class= "row"><img src = {{ imagen }} style = "max-height: 70%;max-width:60%";></div>
+            <div class= "row">
+                <h1>{{ Titulo }}</h1>
+                <div class = "col align-self-center " style = "max-width: 3%;">
+                    {% if is_explicit %}
+                        <i class="bi bi-emoji-angry"></i>
+                    {% endif %}
+                </div>
+                    <div class = "col align-self-center " style = "max-width: 3%;">
+                        {% if is_added %}
+                            <a class="btn" href="{% url 'remove_track'%}">
+                                <i class="bi bi-heart-fill"></i>
+                            </a>
+
+                        {% else %}
+                            <a class="btn" href="{% url 'add_track'%}">
+                                <i class="bi bi-heart"></i>
+                            </a>
+
+                        {% endif %}
+                </div>
+
+            </div>
+            <h4>{{artistas}}</h4>
+            <p>{{duracion }}</p>
+            <div class= "row">
+                {% if id_playlist is not None %}
+                <form action={% url 'add_track_playlist' %} method="post" name="systemForm2">
+                    {% csrf_token %}
+                    <button type="submit" value="add_track"  name="add_track" class = "btn btn-secondary ">
+                        Añadir cancion a la playlist
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class ="col-md-6">
+            <div class = "row justify-content-center">
+                <h3>Letra</h3>
+            </div>
+            <div style = "max-height:90%;max-width:100%;overflow-y: auto;text-align: center;">
+            {{letra|safe}}
+            </div>
+        </div>
+    </div>
+<div class ="row justify-content-center">
+    {% if si %}
+        <form action={% url 'track' %} method="post" name="systemForm2">
+            {% csrf_token %}
+            <button type="submit" value="2"  name="systemForm2" class = "btn">
+                <i class="bi bi-arrow-left-circle-fill"></i>
+            </button>
+        </form>
+    {% endif %}
+    <form action={% url 'track' %} method="post" name="systemForm">
+        {% csrf_token %}
+        <button type="submit" value="1"  name="systemForm" class = "btn">
+            <i class="bi bi-arrow-right-circle-fill"></i>
+        </button>
+    </form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,82 @@
+<html lang="es-es">
+  {% load static %}
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>MusicApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "musicapp/vendor/bootstrap/css/bootstrap.min.css"%}" rel="stylesheet">
+    <script src="{% static "musicapp/vendor/bootstrap/js/bootstrap.min.js"%}"></script>
+
+    <!-- jQuery -->
+    <script src="{% static "musicapp/vendor/jquery/jquery.min.js"%}"></script>
+
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "musicapp/css/1-col-portfolio.css"%}" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'index'%}">MusicApp</a>
+        <button class="navbar-toggler" type= "button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'index'%}">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout_view' %}?next={{ request.path }}">Logout</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container"  id = "principal">
+
+      <!-- Page Heading -->
+
+        <h1 class="my-4">
+        <small></small>
+      </h1>
+
+      {% block content %}{% endblock %}
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container h-10">
+        <p class="m-0 text-center text-white">Copyright &copy; musicapp 2021</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static "musicapp/vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "musicapp/vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+
+  </body>
+
+</html>

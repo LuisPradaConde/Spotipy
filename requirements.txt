@@ -1,0 +1,14 @@
+Django>=2.0,<3.0
+django-common
+django-crispy-forms
+GoogleNews
+Jinja2
+lyricsgenius
+matplotlib
+numpy
+oauthlib
+pandas
+Pillow
+requests
+spotipy
+Wikipedia-API

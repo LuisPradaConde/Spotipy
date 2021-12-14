@@ -1,0 +1,49 @@
+{% extends "musicapp/base.html" %} {%block content%}
+<div class = "row" style = "height:100%;overflow-y:hidden;">
+    <div class = "col-md-3">
+        <p>USUARIO</p>
+        <div style = "margin-bottom: 1%">
+            <img src={{ imagen }}>
+        </div>
+        <a href={{ perfil }}> <h1>{{id}}</h1></a>
+        <p>Seguidores: {{ followers }}</p>
+
+    </div>
+    <div class = "col-md-9">
+
+            <div class = "d-flex" style = "width: 100%">
+                <div class="ml-auto p-2">
+                    <form action={% url 'perfil' %} method="post" id="systemForm">
+                        {% csrf_token %}
+                        <input id="comboType" name= "comboPer" type="search" pattern="short_term|long_term|medium_term" list="typesList" placeholder="Seleciona un periodo" required>
+                            <datalist id="typesList">
+                                <option value="short_term">3 meses</option>
+                                <option value="medium_term">6 meses</option>
+                                <option value="long_term">1 año o más</option>
+                        </datalist>
+                        <input id="comboType" name= "comboCount" type="text" pattern="[0-9.]+" placeholder = "Elementos (max 50) ...">
+                        <button type="submit" class = "btn">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        <div class = "row" style = "height:90%">
+                <div class = "col-md-6">
+                    <h2 style = "margin-bottom: 3%;">Canciones Más Escuchadas</h2>
+                    <div class = "dataframe" style = "height: 85%">
+                        {{tracks|safe}}
+                    </div>
+                </div>
+                <div class = "col-md-6">
+                    <h2 style = "margin-bottom: 3%;"> Artistas Más Escuchados</h2>
+                    <div class = "dataframe" style = "height: 85%">
+                        {{artists|safe}}
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

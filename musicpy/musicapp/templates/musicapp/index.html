@@ -1,0 +1,68 @@
+{% extends "musicapp/base.html" %} {%block content%} <!--{% if cancion_list %} {% for c in cancion_list %}
+<div class="row">
+   <div class="col-md-7">
+	   <a href="{% url 'detail' c.id %}">
+	   <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+	 </a>
+   </div>
+   <div class="col-md-5">
+	   <h3>{{ c.name }}</h3>
+	   <p> ey </p>
+	   <a class="btn btn-primary" href="{% url 'detail' c.id %}">Ver cancion</a>
+   </div>
+</div>
+<hr> {% endfor %} {% else %}
+<p> No existe ninguna cancion </p>
+{% endif %}--> {% if request.user.is_authenticated %}
+<div class="container">
+   <!-- Trigger the modal with a button -->
+
+
+</div>
+<BR> {%else%}
+<div class="container">
+	{{loginError}}
+	<BR>
+	<!-- Trigger the modal with a button -->
+<!--	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display: block; margin: 0 auto">Login</button>
+<!--
+	<!-- Modal >
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+
+												</button>
+
+
+				</div> -->
+				<div class="modal-body">
+					<div role="tabpanel">
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#loginTab" aria-controls="loginTab" role="tab" data-toggle="tab">Login</a>
+
+							</li>
+							<li role="presentation"><a href="#signupTab" aria-controls="signupTab" role="tab" data-toggle="tab">Registrarse</a>
+
+							</li>
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="loginTab">
+								<p>{% load crispy_forms_tags %} {% crispy login_form login_form.helper %}
+								</p>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="signupTab">
+								<p>{% load crispy_forms_tags %} {% crispy signup_form signup_form.helper %}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<BR> {% endif %}{% endblock %}

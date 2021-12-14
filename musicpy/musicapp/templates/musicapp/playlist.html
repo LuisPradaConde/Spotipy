@@ -1,0 +1,156 @@
+ {% extends "musicapp/base.html" %} {%block content%}
+
+ <div id="popup1" class="overlay">
+     <div class="popup">
+         <h2>Edita la playlist</h2>
+         <a class="close" href="#">&times;</a>
+         <div class="content">
+             <p>Cambia el nombre y la descripcion de tu playlist</p>
+             <form action={% url 'edit_playlist' %} method="post" id="systemForm">
+                 {% csrf_token %}
+                 <div class>
+                     <div class="placeholder">
+                         <input type="text" name="editName" id="editName" size="30" placeholder="Nombre..." style = "width: 100%">
+                     </div>
+                     <div class = "placeholder">
+                         <textarea class="input" name="editDescription" id="editDescription" rows="5" placeholder="Descripcion..." ></textarea>
+                     </div>
+
+                 </div>
+                 <div class style ="text-align: center" >
+                     <input type="submit" value="Editar"  >
+                 </div>
+             </form>
+         </div>
+     </div>
+ </div>
+
+ <div id="popup2" class="overlay">
+     <div class="popup">
+         <h2>Añade la cancion que desee</h2>
+         <a class="close" href="#">&times;</a>
+         <div class="content">
+             <p>Busque la cancion que desee añadir :)</p>
+             <form action={% url 'track' %} method="post" name="systemForm2">
+                 {% csrf_token %}
+                 <div class>
+                    <div class="placeholder">
+                      <input type="text" name="add_input" id="add_input" size="30" placeholder="Nombre..."  style = "width: 100%" required>
+                    </div>
+
+                    <div class style ="text-align: center">
+                        <button type="submit" value="add_track" name="add_track" class = "btn btn-secondary">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="popup3" class="overlay">
+     <div class="popup">
+         <h2>Elimine la cancion que desee</h2>
+         <a class="close" href="#">&times;</a>
+         <div class="content">
+             <p>Busque la cancion que desee eliminar :(</p>
+             <form action={% url 'remove_track_playlist' %} method="post" id="systemForm">
+                 {% csrf_token %}
+                 <div class>
+                     <div class="placeholder">
+                         <input type="text" name="findBarName" id="findBarName" size="30" placeholder="Nombre..." style = "width: 100%"required>
+                     </div>
+                    <div class style ="text-align: center">
+                         <button type="submit" value="remove_track"  name="remove_track" class = "btn btn-secondary">
+                             Eliminar
+                         </button>
+                     </div>
+                 </div>
+            </form>
+         </div>
+     </div>
+ </div>
+
+    <div class = "row" style = "height :100%">
+        <div class = "col-md-4">
+                <h6>PLAYLIST</h6>
+                <div class= "row">
+                    <h1>{{Nombre}}</h1>
+                    <div class = "col-sm-3 align-self-center ">
+                        {% if is_follow %}
+                            <a class="btn" href="{% url 'unfollow_playlist'%}">
+                                <i class="bi bi-star-fill"></i>
+                            </a>
+
+                        {% else %}
+                            <a class="btn" href="{% url 'follow_playlist'%}">
+                                <i class="bi bi-star"></i>
+                            </a>
+
+                        {% endif %}
+                    </div>
+                </div>
+                <h6>{{propietario}}</h6>
+                <div class= "row">
+                    {% if is_owner %}
+                    <div style = "width: 100%;margin-top: 1em;margin-top: 0.5em;margin-bottom: 0.5em;">
+                        <a class="btn btn-outline-secondary" href="#popup1">
+                            <i class="bi bi-pencil-square"></i>
+                            Editar Playlist
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div style = "height:40%"  ><img src = {{ imagen }}></div>
+                    <div style = "max-width:80%; margin-top:1em; max-height:16%;overflow-y:auto">
+                        {{descripcion|safe}}
+                    </div>
+                <div class = "row" style = "width:80%;margin-top:1em;">
+                    {% if is_owner %}
+                    <a class="button" href="#popup2" style = "background-color: #6dc38b;width: 50%;height:100%;">
+                        <div class = "col-6 object-content-center" >
+                                Añadir Canciones
+                        </div>
+                    </a>
+                    <a class="button" href="#popup3" style = "background-color:#eb715f;width: 50%;">
+                        <div class = "col-6 object-content-center"  >
+                            Eliminar Canciones
+
+                    </div>
+                        </a>
+                {% endif %}
+                </div>
+        </div>
+        <div class = "col-md-8">
+
+            <div class = "row" style = "max-height:50%;margin-top:2%;">
+            <div class="p-2"><h3>{{canciones}}</h3></div>
+            <div class="ml-auto p-2">
+                <form action={% url 'playlist' %} method="post" id="systemForm">
+                    {% csrf_token %}
+                    <select id="comboType" name= "comboOrd"  list="typesList">
+                        <datalist id="typesList">
+                            <option hidden selected value="">Ordenar por</option>
+                            <option value="Titulo">Titulo</option>
+                            <option value="Artistas">Artistas</option>
+                            <option value="Album">Album</option>
+                            <option value="Duracion">Duracion</option>
+                            <option value="Fecha">Fecha</option>
+                        </datalist>
+                    <select id="comboType" name= "nombre"  value={{ Nombre }}>
+                    <button type="submit" class = "btn-sm">
+                        <i class="bi bi-sort-up-alt"></i>
+                    </button>
+                </form>
+            </div>
+            </div>
+
+
+
+            <div class = "dataframe">
+                {{ tracks|safe }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
