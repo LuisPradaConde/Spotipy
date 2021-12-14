@@ -14,8 +14,8 @@ import webbrowser
 
 
 # Create your views here.
-CLIENT_ID = 'af0457bbd5df4f6c854a4d60d76e215d'
-ID_SECRET = '9371a39a3e0d40d0a03b7fd04a242cd6'
+CLIENT_ID = '********************************'
+ID_SECRET = '********************************'
 SCOPE = 'ugc-image-upload user-library-read user-top-read playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative user-follow-modify user-follow-read user-library-modify user-library-read'
 REDIRECT_URI = 'http://127.0.0.1:8000/musicapp/callback'
 
